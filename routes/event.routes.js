@@ -1,5 +1,5 @@
 const eventsRouter = require("express").Router();
-const { getEvents } = require("../controllers/events-controller");
+const { getEvents } = require("../controllers/event.controller");
 
 eventsRouter.route("/").get(getEvents);
 // articlesRouter
