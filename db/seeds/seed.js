@@ -9,7 +9,6 @@ const db = require("../connection");
 const seed = ({ usersData, eventsData, user_eventsData }) => {
   return db
     .query(`DROP TABLE IF EXISTS user_events;`)
-
     .then(() => {
       return db.query(`DROP TABLE IF EXISTS events;`);
     })
@@ -51,6 +50,16 @@ const seed = ({ usersData, eventsData, user_eventsData }) => {
         bookmarked BOOLEAN DEFAULT FALSE,
         PRIMARY KEY (user_id, event_id)
       );`);
+    })
+    .then(() => {
+      return db.query(
+        `CREATE INDEX idx_user_events_user_id ON user_events(user_id);`
+      );
+    })
+    .then(() => {
+      return db.query(
+        `CREATE INDEX idx_user_events_event_id ON user_events(event_id);`
+      );
     })
     .then(() => {
       const insertUsersQueryStr = format(
@@ -97,6 +106,18 @@ const seed = ({ usersData, eventsData, user_eventsData }) => {
       const eventsPromise = db.query(insertEventsQueryStr);
 
       return Promise.all([eventsPromise, usersPromise]);
+    })
+    .then(() => {
+      const insertUser_EventsQueryStr = format(
+        "INSERT INTO user_events (user_id, event_id, bookmarked) VALUES %L RETURNING *;",
+        user_eventsData.map(({ user_id, event_id, bookmarked }) => [
+          user_id,
+          event_id,
+          bookmarked,
+        ])
+      );
+
+      return db.query(insertUser_EventsQueryStr);
     });
 };
 
