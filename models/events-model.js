@@ -26,7 +26,44 @@ function fetchEventById(event_id) {
     });
 }
 
+function addEvent(commentData) {
+  const {
+    title,
+    description,
+    loc_address,
+    loc_city,
+    loc_postcode,
+    start_time,
+    end_time,
+    created_by,
+  } = commentData;
+  return db
+    .query(
+      `INSERT INTO events (title, description, loc_address, loc_city, loc_postcode, start_time, end_time, created_by)
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`,
+      [
+        title,
+        description,
+        loc_address,
+        loc_city,
+        loc_postcode,
+        start_time,
+        end_time,
+        created_by,
+      ]
+    )
+    .then(({ rows }) => {
+      return rows[0];
+    })
+    .catch((err) => {
+      //console.log(err);
+      /// I had to Rethrow the error to be caught in the calling function
+      throw err;
+    });
+}
+
 module.exports = {
   fetchEvents,
   fetchEventById,
+  addEvent,
 };
