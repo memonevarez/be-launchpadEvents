@@ -37,7 +37,11 @@ const seed = ({ usersData, eventsData, user_eventsData }) => {
         loc_postcode VARCHAR,
         start_time TIMESTAMP,
         end_time TIMESTAMP,
-        created_by INT NOT NULL REFERENCES users(user_id)
+        created_by INT NOT NULL REFERENCES users(user_id),
+        event_image VARCHAR,
+        number_of_tickets INT default 10,
+        tickets_bought INT default 0,
+        price INT default 0
       );`);
 
       return Promise.all([eventsTablePromise, usersTablePromise]);
@@ -78,10 +82,10 @@ const seed = ({ usersData, eventsData, user_eventsData }) => {
       const usersPromise = db.query(insertUsersQueryStr);
 
       const insertEventsQueryStr = format(
-        "INSERT INTO events (event_id, title, description,loc_address, loc_city, loc_postcode, start_time, end_time, created_by) VALUES %L;",
+        `INSERT INTO events (title, description,loc_address, loc_city, loc_postcode, start_time, end_time,
+             created_by, event_image, number_of_tickets, tickets_bought, price) VALUES %L;`,
         eventsData.map(
           ({
-            event_id,
             title,
             description,
             loc_address,
@@ -90,8 +94,11 @@ const seed = ({ usersData, eventsData, user_eventsData }) => {
             start_time,
             end_time,
             created_by,
+            event_image,
+            number_of_tickets,
+            tickets_bought,
+            price,
           }) => [
-            event_id,
             title,
             description,
             loc_address,
@@ -100,6 +107,10 @@ const seed = ({ usersData, eventsData, user_eventsData }) => {
             start_time,
             end_time,
             created_by,
+            event_image,
+            number_of_tickets,
+            tickets_bought,
+            price,
           ]
         )
       );

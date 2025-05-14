@@ -4,7 +4,7 @@ module.exports = [
     name: "Guillermo Nevarez",
     email: "guille@lauchpad.com",
     password_hash: "1234",
-    is_staff: false,
+    is_staff: true,
     avatar_url:
       "https://vignette.wikia.nocookie.net/mrmen/images/d/d6/Mr-Tickle-9a.png/revision/latest?cb=20180127221953",
   },
@@ -13,14 +13,14 @@ module.exports = [
     name: "Rosalia noLastname",
     email: "rose@lauchpad.com",
     password_hash: "1234",
-    is_staff: false,
+    is_staff: true,
     avatar_url:
       "https://vignette.wikia.nocookie.net/mrmen/images/7/78/Mr-Grumpy-3A.PNG/revision/latest?cb=20170707233013",
   },
   {
     username: "happyamy2016",
-    name: "Amy Happy",
-    email: "amy@lauchpad.com",
+    name: "Amy WinePalace",
+    email: "amy@launchpad.com",
     password_hash: "1234",
     is_staff: false,
     avatar_url:
