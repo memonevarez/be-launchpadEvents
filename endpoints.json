@@ -1,129 +1,120 @@
 {
   "GET /api": {
-    "description": "serves up a json representation of all the available endpoints of the api"
+    "description": "Returns a JSON representation of all available endpoints"
   },
-  "GET /api/topics": {
-    "description": "serves an array of all topics",
+  "GET /api/events": {
+    "description": "Returns all events with event details and creator info",
     "queries": [],
     "exampleResponse": {
-      "topics": [{ "slug": "football", "description": "Footie!" }]
-    }
-  },
-  "GET /api/articles/:article_id": {
-    "description": "return the data of the given article",
-    "queries": [],
-    "exampleResponse": {
-      "articles": [
+      "events": [
         {
-          "article_id": 4,
-          "title": "Student SUES Mitch!",
-          "topic": "mitch",
-          "author": "rogersop",
-          "body": "We all love Mitch and his wonderful, unique typing style. However, the volume of his typing has ALLEGEDLY burst another students eardrums, and they are now suing for damages",
-          "created_at": "2020-05-06T01:14:00.000Z",
-          "votes": 0,
-          "article_img_url": "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
-          "comment_count": 0
+          "event_id": 1,
+          "title": "Tech Expo",
+          "description": "Explore the latest in tech.",
+          "loc_address": "123 Main St",
+          "loc_city": "London",
+          "loc_postcode": "E1 6AN",
+          "start_time": "2025-05-25T09:00:00Z",
+          "end_time": "2025-05-25T17:00:00Z",
+          "username": "memonevarez",
+          "event_image": "https://example.com/image.jpg",
+          "number_of_tickets": 100,
+          "tickets_bought": 25,
+          "price": 10.0
         }
       ]
     }
   },
-  "GET /api/articles": {
-    "description": "serves an array of all articles",
-    "queries": ["author", "topic", "sort_by", "order"],
-    "exampleResponse": {
-      "articles": [
-        {
-          "title": "Seafood substitutions are increasing",
-          "topic": "cooking",
-          "author": "weegembump",
-          "body": "Text from the article..",
-          "created_at": "2018-05-30T15:59:13.341Z",
-          "votes": 0,
-          "comment_count": 6
-        }
-      ]
-    }
-  },
-  "GET /api/articles/:article_id/comments": {
-    "description": "Returns all the comments that belong to the given article_id",
+  "GET /api/events/:event_id": {
+    "description": "Returns details of a specific event including creator contact",
     "queries": [],
     "exampleResponse": {
-      "articles": [
-        {
-          "comment_id": 15,
-          "body": "I am 100% sure that we're not completely sure.",
-          "article_id": 5,
-          "author": "butter_bridge",
-          "votes": 1,
-          "created_at": "2020-11-24T00:08:00.000Z"
-        },
-        {
-          "comment_id": 14,
-          "body": "What do you see? I have no idea where this will lead us. This place I speak of, is known as the Black Lodge.",
-          "article_id": 5,
-          "author": "icellusedkars",
-          "votes": 16,
-          "created_at": "2020-06-09T05:00:00.000Z"
-        }
-      ]
-    }
-  },
-  "POST /api/articles/:article_id/comments": {
-    "description": "Post a new comment to the given article_id",
-    "queries": [],
-    "exampleResponse": {
-      "articles": [
-        {
-          "comment_id": 19,
-          "body": "We might all sue that man for leaving us.",
-          "article_id": 4,
-          "author": "lurker",
-          "votes": 0,
-          "created_at": "2024-10-15T00:08:00.000Z"
-        }
-      ]
-    }
-  },
-  "PATCH /api/articles/:article_id": {
-    "description": "Update the votes of an article with the given article_id",
-    "queries": [],
-    "exampleResponse": {
-      "updatedArticle": {
-        "article_id": 12,
-        "title": "Moustache",
-        "topic": "mitch",
-        "author": "butter_bridge",
-        "body": "Have you seen the size of that thing?",
-        "created_at": "2020-10-11T11:24:00.000Z",
-        "votes": 89,
-        "article_img_url": "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700"
+      "event": {
+        "title": "Tech Expo",
+        "description": "Explore the latest in tech.",
+        "loc_address": "123 Main St",
+        "loc_city": "London",
+        "loc_postcode": "E1 6AN",
+        "start_time": "2025-05-25T09:00:00Z",
+        "end_time": "2025-05-25T17:00:00Z",
+        "username": "memonevarez",
+        "name": "Guillermo Nevarez",
+        "email": "guille@lauchpad.com"
       }
     }
   },
-  "DELETE /api/comments/:comment_id": {
-    "description": "Deletes a comment with the given comment_id. Returns a 204 status with no content if successful.",
+  "DELETE /api/events/:event_id": {
+    "description": "Deletes an event with the given event_id",
     "queries": [],
     "exampleResponse": {
-      "status": 204,
-      "data": null
+      "deletedEvent": {
+        "event_id": 1,
+        "title": "Tech Expo"
+      }
     }
   },
-  "GET /api/users": {
-    "description": "Returns an array of user objects.",
+  "GET /api/users/:user_id/created-events": {
+    "description": "Returns all events created by the given user",
     "queries": [],
     "exampleResponse": {
-      "status": 200,
-      "users": [
+      "events": [
         {
-          "username": "butter_bridge",
-          "name": "jonny",
-          "avatar_url": "https://www.healthytherapies.com/wp-content/uploads/2016/06/Lime3.jpg"
-        },
+          "title": "Tech Expo",
+          "description": "Explore the latest in tech.",
+          "loc_address": "123 Main St",
+          "loc_city": "London",
+          "loc_postcode": "E1 6AN",
+          "start_time": "2025-05-25T09:00:00Z",
+          "end_time": "2025-05-25T17:00:00Z",
+          "username": "memonevarez",
+          "name": "Guillermo Nevarez",
+          "email": "guille@lauchpad.com"
+        }
+      ]
+    }
+  },
+  "GET /api/users/:user_id/bookmarked-events": {
+    "description": "Returns events bookmarked or signed up to by the given user",
+    "queries": [],
+    "exampleResponse": {
+      "events": [
         {
-          "username": "icellusedkars",
-          "name": "sam",
-          "avatar_url": "https://avatars2.githubusercontent.com/u/24604688?s=460&v=4"
+          "event_id": 2,
+          "title": "Art Fair",
+          "description": "An exhibition of modern art.",
+          "loc_address": "456 Art Blvd",
+          "loc_city": "Manchester",
+          "loc_postcode": "M1 4AB",
+          "start_time": "2025-06-10T10:00:00Z",
+          "end_time": "2025-06-10T16:00:00Z",
+          "user_id": 5,
+          "username": "memonevarez",
+          "name": "Guillermo Nevarez",
+          "email": "guille@lauchpad.com",
+          "event_image": "https://example.com/art.jpg",
+          "number_of_tickets": 50,
+          "tickets_bought": 20,
+          "price": 12.5
+        }
+      ]
+    }
+  },
+  "GET /api/users/:user_id/signed-up-events": {
+    "description": "Returns events the user has signed up to",
+    "queries": [],
+    "exampleResponse": {
+      "events": [
+        {
+          "event_id": 3,
+          "title": "Music Fest",
+          "description": "Outdoor live music event.",
+          "loc_address": "789 Sound Rd",
+          "loc_city": "Bristol",
+          "loc_postcode": "BS1 2EF",
+          "start_time": "2025-07-01T12:00:00Z",
+          "end_time": "2025-07-01T22:00:00Z",
+          "event_image": "https://example.com/music.jpg",
+          "price": 20.0
         }
       ]
     }
